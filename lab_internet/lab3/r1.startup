@@ -4,5 +4,5 @@ ifconfig eth0 10.0.0.1 netmask 255.255.255.252 broadcast 10.0.0.3 up
 ifconfig eth1 30.0.0.2 netmask 255.255.255.252 broadcast 30.0.0.3 up
 #the 		network with netmask      is reachable with the host on dev eth1
 route add -net 128.128.0.0   netmask 255.255.240.0 gw 10.0.0.2  dev eth0
-
+rout add  -net 192.192.192.0 netmask 255.255.240.0 gw 30.0.0.1  dev eth1
 
