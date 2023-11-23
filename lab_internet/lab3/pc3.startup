@@ -1,3 +1,6 @@
+#pc3
 ifconfig eth0 128.128.0.1 netmask 255.255.240.0 broadcast 128.128.15.255 up
+#default gateway
+route add default gw 128.128.15.254
 
 
