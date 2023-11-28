@@ -55,10 +55,10 @@ if len(sys.argv) != 3:
     exit()
 
 ip_address = sys.argv[1]
-n_bits_to_remove = int(sys.argv[2])
+n_bits_net = int(sys.argv[2])
 
 # making the subnet mask
-int_submask = int("0b" + "1" * n_bits_to_remove + "0" * (32 - n_bits_to_remove), 2)
+int_submask = int("0b" + "1" * n_bits_net + "0" * (32 - n_bits_net), 2)
 
 int_ip = ip_to_int(ip_address)
 ip = int_to_ip_string(int_ip)
@@ -68,8 +68,10 @@ clean_ip = int_to_ip_string(int_clean_ip)
 bin_clean_ip = ip_to_bits(int_clean_ip)
 
 print()
-print(f"Indirizzo IP di partenza: {ip}/{n_bits_to_remove}")
-# print(f"Indirizzo IP come intero: {int_ip}")
+print(f"Indirizzo IP di partenza: {ip}/{n_bits_net}")
+print()
+
+#print(f"Indirizzo IP come intero: {int_ip}")
 print(f"Indirizzo IP pulito come stringa: {clean_ip}")
 print(f"Indirizzo IP pulito in binario: {bin_clean_ip}")
 print()
@@ -79,12 +81,21 @@ print()
 submask = int_to_ip_string(int_submask)
 bin_submask = ip_to_bits(submask)
 # subnet mask
-# print(f"Subnet Mask string : {int_submask}")
+#print(f"Subnet Mask int : {int_submask}")
 print(f"Subnet Mask string : {submask}")
 print(f"Subnet Mask binario : {bin_submask}")
 
-
 print()
 
+n_bit_host = 32 - n_bits_net
+offset = int("0b" + "0" * n_bits_net + "1" * n_bit_host, 2)
+int_max_ip = int_clean_ip + offset
+max_ip = int_to_ip_string(int_max_ip)
+bin_max_ip = ip_to_bits(max_ip)
+
+#print(f"Maximum ip int {int_max_ip}")
+print(f"Maximum ip string {max_ip}")
+print(f"Maximum ip binario : {bin_submask}")
 
 #TO DO MAKE A MAX CALCULATOR FOR IPS
+
