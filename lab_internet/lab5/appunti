@@ -1,0 +1,15 @@
+firs we need to start the processes
+
+ON WS
+/etc/init.d/apache2 start 
+ON VPC 
+/etc/init.d/ssh start 
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+
+echo "root:toor" | chpasswd 
+
+
+/etc/init.d/ssh restart 
+
+

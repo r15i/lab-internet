@@ -1,0 +1,4 @@
+/sbin/ifconfig eth0 147.162.13.111 netmask 255.255.255.0 up
+/sbin/route add default gw 147.162.13.254
+/etc/init.d/apache2 start
+/etc/init.d/ssh start

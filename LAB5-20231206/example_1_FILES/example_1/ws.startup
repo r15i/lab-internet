@@ -1,0 +1,3 @@
+/sbin/ifconfig eth0 148.163.14.240 netmask 255.255.255.0 up
+/sbin/route add default gw 148.163.14.254
+/etc/init.d/apache2 start
