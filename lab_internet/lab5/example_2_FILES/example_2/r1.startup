@@ -3,24 +3,33 @@ ifconfig eth1 159.173.25.254 netmask 255.255.255.252 up
 route add -net default gw 159.173.25.253
 /etc/init.d/ssh start
 
+#setting the default policyes
+iptables  --policy INPUT DROP
+iptables  --policy OUTPUT ACCEPT 
+iptables  --policy FORWARD DROP
 
-#iptables --table filter --policy INPUT DROP
-#iptables --table filter --policy OUTPUT ACCEPT 
-#iptables --table filter --policy FORWARD DROP
-#iptables --table filter --append INPUT --in-interface lo --jump ACCEPT
-
-#allowing traffic from the outside
-#accept traffic from eth0 to eth1 
-#iptables --table filter --append FORWARD --in-interface eth0 --out-interface eth1 --jump ACCEPT
-#allows the "conversations" already enstablished thru eth1 to eth0 
-#is differt from allowing evry connection (the conversation can be started only from the outside not from the inside)
-#iptables --table filter --append FORWARD --in-interface eth1 --out-interface eth0 --match state --state ESTABILSHED,RELATED --jump ACCEPT
+#chainging the loopback 
+iptables  -A INPUT --in-interface lo --jump ACCEPT
 
 
-#Allowing the incoming  connection to port 80 of lan 
-#allows the traffic to out the interface eth0 to the destination 147.162.13.240
-#iptables --table filter --append FORWARD --protocol tcp --destination-port 80 --in-interface eth1 --out-interface eth0 --destination 147.162.13.240 --jump ACCEPT
-#allowing allow incoming ssh from LANPC1 AND LANPC2 TO open the management interface
-#iptables --table filter --append INPUT --protocol tcp --destination-port 22 --in-interface eth0 --source 147.162.13.111 --jump ACCEPT
+#allow traffic from the outside
+#allow to send packets to the outside
+
+iptables --table filter --append FORWARD --in-interface eth0 --out-interface eth1 --jump ACCEPT
+
+#allow conversation with "conversations" , can be started only from the inside 
+
+iptables --table filter --append FORWARD --in-interface eth1 --out-interface eth0 --match state --state ESTABLISHED,RELATED --jump ACCEPT
+
+
+#we need to make lanws accessible 
+#allow to receive tcp connection on 80 with destination 
+iptables --table filter --append FORWARD --protocol tcp --destination-port 80 --in-interface eth1 --out-interface eth0 --destination 147.162.13.240 --jump ACCEPT
+
+#allow ONLY  a tcp on prot 22 in input from eth0 from lanpc1 di open management interface(for r1)
+iptables --table filter --append INPUT --protocol tcp --destination-port 22 --in-interface eth0 --source 147.162.13.111 --jump ACCEPT
+
+#allow on lanpc2
+iptables --table filter --append INPUT --protocol tcp --destination-port 22 --in-interface eth0 --source 147.162.13.112 --jump ACCEPT
 
 
