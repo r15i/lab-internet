@@ -1,3 +1,0 @@
-ifconfig eth0 147.162.13.240 netmask 255.255.255.0 up
-route add default gw 147.162.13.254
-/etc/init.d/apache2 start

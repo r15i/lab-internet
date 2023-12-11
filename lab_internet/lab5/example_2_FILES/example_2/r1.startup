@@ -2,3 +2,10 @@ ifconfig eth0 147.162.13.254 netmask 255.255.255.0 up
 ifconfig eth1 159.173.25.254 netmask 255.255.255.252 up
 route add -net default gw 159.173.25.253
 /etc/init.d/ssh start
+
+
+iptables --table filter --policy INPUT DROP
+iptables --table filter --policy OUTPUT ACCEPT 
+iptables --table filter --policy FORWARD DROP
+iptables --table filter --append INPUT --in-interface lo --jump ACCEPT
+

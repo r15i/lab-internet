@@ -1,4 +1,0 @@
-ifconfig eth0 192.168.10.254 netmask 255.255.255.0 up
-ifconfig eth1 161.175.30.253 netmask 255.255.255.252 up
-route add default gw 161.175.30.254
-/etc/init.d/ssh start

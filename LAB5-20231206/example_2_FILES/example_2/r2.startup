@@ -1,3 +1,0 @@
-ifconfig eth0 148.163.14.254 netmask 255.255.255.0 up
-ifconfig eth1 159.173.25.253 netmask 255.255.255.252 up
-route add -net default gw 159.173.25.254

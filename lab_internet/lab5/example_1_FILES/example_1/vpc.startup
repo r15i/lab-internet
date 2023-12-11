@@ -11,3 +11,22 @@ echo "root:toor" | chpasswd
 
 
 
+echo "setting firewall"
+echo "flushing settings"
+iptables --table filter --flush 
+iptables --table filter --delete-chain
+
+
+echo "setting default policies"
+iptables --table filter --policy INPUT DROP 
+iptables --table filter --policy OUTPUT ACCEPT
+
+iptables --table filter --append INPUT --in-interface lo --jump ACCEPT
+
+
+iptables --table filter --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT 
+
+iptables --table filter --append INPUT --protocol tcp --destination-port 22 --jump ACCEPT
+
+iptables --table filter --append INPUT --match state --state ESTABLISHED,RELATED --jump ACCEPT
+
