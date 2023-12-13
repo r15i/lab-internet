@@ -2,3 +2,30 @@ ifconfig eth0 192.168.10.254 netmask 255.255.255.0 up
 ifconfig eth1 161.175.30.253 netmask 255.255.255.252 up
 route add default gw 161.175.30.254
 /etc/init.d/ssh start
+
+
+
+#set default policies 
+#by default if not there is no difference in setting or not the policy on ssh 
+iptables --policy INPUT DROP
+iptables --policy OUTPUT ACCEPT
+
+
+
+#allows outgoing ping chainging the source 
+#does not allow conversations
+iptables --table nat --append POSTROUTING --source 192.168.10.0/24 --out-interface eth1 --jump SNAT --to 161.175.30.253 
+
+#allow lanws to be connected from the internet
+#iptables --table nat --append PREROUTING --protocol tcp --destination 161.175.30.253 --destination-port 80 --in-interface eth1 --jump DNAT --to 192.168.10.240:80
+
+#ALLOWING SSH TO R1 
+#allow ONLY  a tcp on port 22 in input from eth0 from lanpc1 di open management interface(for r1)
+#from lanpc1
+iptables --table filter --append INPUT --protocol tcp --destination-port 22 --in-interface eth0 --source 192.168.10.111 --jump ACCEPT
+#from lanpc2
+iptables --table filter --append INPUT --protocol tcp --destination-port 22 --in-interface eth0 --source 192.168.10.112 --jump ACCEPT
+
+
+
+
