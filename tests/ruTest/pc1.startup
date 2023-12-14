@@ -1,0 +1,9 @@
+ifconfig eth0 195.11.14.5 netmask 255.255.255.0 broadcast 195.11.14.255 up
+
+#with default gw
+#route add default gw 195.11.14.1 
+
+#with static routing 
+route add -net 100.0.0.8 netmask 255.255.255.252 gw 195.11.14.1 dev eth0
+route add -net 200.1.1.0 netmask 255.255.255.0   gw 195.11.14.1 dev eth0
+

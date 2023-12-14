@@ -1,0 +1,7 @@
+
+#PC1
+
+ifconfig eth0 96.96.0.1 netmask 255.255.255.0 broadcast 96.96.0.255 up
+
+#default gateway 
+route add default gw 96.96.0.254
