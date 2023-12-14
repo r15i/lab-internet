@@ -2,3 +2,14 @@
 /usr/sbin/service apache2 restart
 /usr/sbin/service ssh restart
 
+#drop input output 
+iptables --policy INPUT DROP
+iptables --policy OUTPUT DROP 
+ 
+
+iptables --append INPUT --protocol tcp --destination-port 80 --jump ACCEPT
+iptables --append INPUT --protocol tcp --destination-port 22 --jump ACCEPT
+iptables --append OUTPUT --protocol tcp --match state --state ESTABLISHED,RELATED --jump ACCEPT
+
+
+
