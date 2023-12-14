@@ -1,0 +1,1 @@
+/sbin/ifconfig eth0 100.100.100.1  netmask 255.255.255.0 broadcast 100.100.100.255  up
